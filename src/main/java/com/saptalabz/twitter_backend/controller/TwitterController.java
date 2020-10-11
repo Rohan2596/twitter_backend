@@ -9,10 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tweets")
 public class TwitterController {
 
-    @GetMapping
+    @GetMapping("/username")
     public String getAllTweetsByUserName(@RequestParam(value = "username") String username) {
         System.out.println("Username:-- " + username);
         return username;
     }
 
+    @GetMapping("/tag")
+    public String getAllTweetsByTag(@RequestParam(value = "tag") String tag) {
+        System.out.println("Tag:-- " + tag);
+        return tag;
+    }
 }
