@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tweets")
 public class TwitterController {
@@ -20,4 +22,11 @@ public class TwitterController {
         System.out.println("Tag:-- " + tag);
         return tag;
     }
+    @GetMapping("/both")
+    public String getAllTweetsByBoth(@RequestParam(value = "both") String both) {
+        System.out.println("both:--" + both);
+        return both;
+    }
+
+
 }

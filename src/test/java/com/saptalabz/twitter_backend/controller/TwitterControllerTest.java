@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
@@ -18,6 +21,8 @@ public class TwitterControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    List<String> searchList = new ArrayList<>();
 
     @Test
     public void givenValidSearchInput_whenSearchByUsername_shouldReturnValidResponse() throws Exception {
@@ -34,6 +39,17 @@ public class TwitterControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .param("tag", "#developer")).andReturn();
         Assertions.assertEquals("#developer", mvcResult.getResponse().getContentAsString());
+
+    }
+
+    @Test
+    public void givenValidSearchInput_whenSearchByBoth_shouldReturnValidResponse() throws Exception {
+        searchList.add("#developer");
+        searchList.add("@RohanKadam2596");
+        MvcResult mvcResult = this.mockMvc.perform(get("/tweets/both")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .param("both", String.valueOf(searchList))).andReturn();
+        Assertions.assertEquals("[#developer, @RohanKadam2596]", mvcResult.getResponse().getContentAsString());
 
     }
 
