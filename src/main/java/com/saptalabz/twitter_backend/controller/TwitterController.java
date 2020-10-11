@@ -1,0 +1,18 @@
+package com.saptalabz.twitter_backend.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/tweets")
+public class TwitterController {
+
+    @GetMapping
+    public String getAllTweetsByUserName(@RequestParam(value = "username") String username) {
+        System.out.println("Username:-- " + username);
+        return username;
+    }
+
+}
