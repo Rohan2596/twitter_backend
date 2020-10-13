@@ -11,20 +11,33 @@ import java.util.List;
 public class TwitterServiceImplementation implements ITwitterService {
 
 
+    @Autowired
+    TwitterApiConfiguration twitterApiConfiguration;
+
+
+
     @Override
     public List<String> getTweetsByUsername(InputDto inputDto) {
+        createTwitterConFiguration();
         return inputDto.inputList;
     }
 
     @Override
     public List<String> getTweetsByTag(InputDto inputDto) {
+        createTwitterConFiguration();
         return inputDto.inputList;
     }
 
     @Override
     public List<String> getTweetsByBoth(InputDto inputDto) {
+        createTwitterConFiguration();
         return inputDto.inputList;
     }
 
+
+    public void createTwitterConFiguration(){
+        twitterApiConfiguration.fetchTweetsFromTwitterApi("");
+
+    }
 
 }
