@@ -7,7 +7,9 @@ import java.util.List;
 public interface ITwitterService {
 
     List<String> getTweetsByUsername(InputDto inputDto);
+
     List<String> getTweetsByTag(InputDto inputDto);
+
     List<String> getTweetsByBoth(InputDto inputDto);
 
 
