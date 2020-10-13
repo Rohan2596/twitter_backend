@@ -18,26 +18,37 @@ public class TwitterServiceImplementation implements ITwitterService {
 
     @Override
     public List<String> getTweetsByUsername(InputDto inputDto) {
-        createTwitterConFiguration();
+        queryCreation(inputDto);
         return inputDto.inputList;
     }
 
     @Override
     public List<String> getTweetsByTag(InputDto inputDto) {
-        createTwitterConFiguration();
+        queryCreation(inputDto);
         return inputDto.inputList;
     }
 
     @Override
     public List<String> getTweetsByBoth(InputDto inputDto) {
-        createTwitterConFiguration();
+        queryCreation(inputDto);
         return inputDto.inputList;
     }
 
 
-    public void createTwitterConFiguration(){
-        twitterApiConfiguration.fetchTweetsFromTwitterApi("");
 
+    public void  queryCreation(InputDto inputDto){
+        String query = "";
+        for (String value:inputDto.inputList) {
+            System.out.println(value);
+            if(value.contains("@")){
+                System.out.println("yes");
+                String replace=value.replace("@","%40");
+                query=replace+"+";
+            }
+
+        }
+        System.out.println(query);
+        twitterApiConfiguration.fetchTweetsFromTwitterApi(query);
     }
 
 }

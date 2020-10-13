@@ -23,7 +23,7 @@ public class TwitterApiConfiguration {
         httpHeaders.add("Authorization", bearerToken);
         httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE));
         HttpEntity<String> entity = new HttpEntity<>("body", httpHeaders);
-        ResponseEntity<TwitterDto> twitterDtoResponseEntity = restTemplate.exchange("https://api.twitter.com/1.1/search/tweets.json?q=%40pmmodi&"+count, HttpMethod.GET, entity, TwitterDto.class);
+        ResponseEntity<TwitterDto> twitterDtoResponseEntity = restTemplate.exchange("https://api.twitter.com/1.1/search/tweets.json?q="+ query+"&"+count, HttpMethod.GET, entity, TwitterDto.class);
         return new TwitterDto(twitterDtoResponseEntity.getBody());
     }
 
