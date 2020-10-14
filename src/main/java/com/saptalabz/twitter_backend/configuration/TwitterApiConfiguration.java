@@ -24,7 +24,7 @@ public class TwitterApiConfiguration {
         httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE));
         HttpEntity<String> entity = new HttpEntity<>("body", httpHeaders);
         ResponseEntity<TwitterDto> twitterDtoResponseEntity = restTemplate.exchange("https://api.twitter.com/1.1/search/tweets.json?q="+ query+"&"+count, HttpMethod.GET, entity, TwitterDto.class);
-        return new TwitterDto(twitterDtoResponseEntity.getBody());
+        return new TwitterDto(twitterDtoResponseEntity.getBody().statuses,twitterDtoResponseEntity.getBody().search_metadata);
     }
 
 }

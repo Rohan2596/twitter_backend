@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 public class TwitterDto {
 
     public List<StatusesDto> statuses;
     public SearchMetaData search_metadata;
 
-    public TwitterDto(TwitterDto twitterDto) {
-        this.statuses=twitterDto.statuses;
-        this.search_metadata=twitterDto.search_metadata;
+    public TwitterDto(List<StatusesDto> statuses, SearchMetaData search_metadata) {
+        this.statuses = statuses;
+        this.search_metadata = search_metadata;
     }
 }

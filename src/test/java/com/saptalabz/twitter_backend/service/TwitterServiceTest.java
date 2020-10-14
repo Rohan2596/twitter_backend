@@ -115,5 +115,16 @@ public class TwitterServiceTest {
         Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByBoth(inputDto));
 
     }
+    @Test
+    public void givenValidInput_whenInput_shouldReturnValidResponse(){
+
+        this.getTweets = new ArrayList<>();
+        this.getTweets.add(username);
+        this.getTweets.add(tag);
+        this.inputDto = new InputDto(this.getTweets);
+
+        Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
+        twitterServiceImplementation.getTweetsByBoth(this.inputDto);
+    }
 
 }
