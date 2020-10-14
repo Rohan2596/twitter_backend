@@ -52,8 +52,14 @@ public class TwitterServiceImplementation implements ITwitterService {
                 String replace = value.replace("@", "%40");
                 query = replace + "+";
             }
+            if (value.contains("#")) {
+                String replace = value.replace("#", "%23");
+                query = replace + "+";
+                System.out.println(query);
+            }
 
         }
+
         return twitterApiConfiguration.fetchTweetsFromTwitterApi(query);
 
     }
