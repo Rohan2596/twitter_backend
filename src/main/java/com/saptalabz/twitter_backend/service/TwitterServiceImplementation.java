@@ -19,6 +19,8 @@ public class TwitterServiceImplementation implements ITwitterService {
     @Autowired
     TwitterApiConfiguration twitterApiConfiguration;
 
+
+
     @Autowired
     TweetsRepository tweetsRepository;
 

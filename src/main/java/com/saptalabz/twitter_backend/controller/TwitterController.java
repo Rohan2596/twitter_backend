@@ -1,6 +1,8 @@
 package com.saptalabz.twitter_backend.controller;
 
 import com.saptalabz.twitter_backend.dto.InputDto;
+import com.saptalabz.twitter_backend.service.TwitterServiceImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,21 +11,27 @@ import java.util.List;
 @RequestMapping("/tweets")
 public class TwitterController {
 
+    @Autowired
+    TwitterServiceImplementation twitterServiceImplementation;
 
-    @GetMapping("/username")
+
+    @PostMapping("/username")
     public List<String> getAllTweetsByUserName(@RequestBody InputDto inputDto) {
-
+        twitterServiceImplementation.getTweetsByUsername(inputDto);
         return inputDto.inputList;
     }
 
-    @GetMapping("/tag")
+    @PostMapping("/tag")
     public List<String> getAllTweetsByTag(@RequestBody InputDto inputDto) {
+        twitterServiceImplementation.getTweetsByUsername(inputDto);
 
         return inputDto.inputList;
     }
 
-    @GetMapping("/both")
+    @PostMapping("/both")
     public List<String> getAllTweetsByBoth(@RequestBody InputDto inputDto) {
+        twitterServiceImplementation.getTweetsByUsername(inputDto);
+
         return inputDto.inputList;
     }
 
