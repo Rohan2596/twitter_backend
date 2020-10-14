@@ -25,7 +25,8 @@ public class TwitterServiceImplementation implements ITwitterService {
 
     @Override
     public List<String> getTweetsByUsername(InputDto inputDto) {
-        queryCreation(inputDto);
+        Tweet tweet=saveToRepository(queryCreation(inputDto));
+        System.out.println(tweet);
         return inputDto.inputList;
     }
 
@@ -60,9 +61,8 @@ public class TwitterServiceImplementation implements ITwitterService {
         for (StatusesDto statusesDto : twitterDto.statuses) {
             Tweet tweet = new Tweet(statusesDto);
             tweets.add(tweet);
-
+            tweetsRepository.save(tweet);
         }
-        System.out.println(tweets.get(0));
         return tweets.get(0);
     }
 }

@@ -6,6 +6,8 @@ import com.saptalabz.twitter_backend.dto.twitter.SearchMetaData;
 import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
 import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
 import com.saptalabz.twitter_backend.dto.twitter.UserDto;
+import com.saptalabz.twitter_backend.model.Tweet;
+import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -30,12 +33,15 @@ public class TwitterServiceTest {
     TwitterServiceImplementation twitterServiceImplementation;
 
     @Mock
+    TweetsRepository tweetsRepository;
+
+    @Mock
     TwitterApiConfiguration twitterApiConfiguration;
 
     private InputDto inputDto;
 
-    String username = "@RohanKadam2596";
-    String tag="#developer";
+    String username = "@elonmusk";
+    String tag = "#developer";
     List<String> getTweets;
 
 
@@ -43,7 +49,8 @@ public class TwitterServiceTest {
     StatusesDto statusesDto;
     UserDto userDto;
     SearchMetaData searchMetaData;
-    List<StatusesDto> statuses=new ArrayList<StatusesDto>();
+    Tweet tweet;
+    List<StatusesDto> statuses = new ArrayList<StatusesDto>();
 
     @BeforeEach
     void setUp() {
@@ -73,20 +80,19 @@ public class TwitterServiceTest {
         this.statuses.add(this.statusesDto);
         this.twitterDto = new TwitterDto(this.statuses,
                 this.searchMetaData);
-
+        this.tweet = new Tweet(this.statusesDto);
     }
 
     @Test
-    public void givenValidInput_whenInputUserName_shouldReturnValidResponse(){
+    public void givenValidInput_whenInputUserName_shouldReturnValidResponse() {
 
         this.getTweets = new ArrayList<>();
         this.getTweets.add(username);
         this.getTweets.add(username);
         this.inputDto = new InputDto(this.getTweets);
-
-        Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
+        Mockito.when(this.twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
+        Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByUsername(this.inputDto));
-
     }
 
 
@@ -99,6 +105,7 @@ public class TwitterServiceTest {
         this.inputDto = new InputDto(this.getTweets);
 
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
+        Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByTag(this.inputDto));
 
     }
@@ -112,19 +119,10 @@ public class TwitterServiceTest {
         this.inputDto = new InputDto(this.getTweets);
 
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
+        Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByBoth(inputDto));
 
     }
-    @Test
-    public void givenValidInput_whenInput_shouldReturnValidResponse(){
 
-        this.getTweets = new ArrayList<>();
-        this.getTweets.add(username);
-        this.getTweets.add(tag);
-        this.inputDto = new InputDto(this.getTweets);
-
-        Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
-        twitterServiceImplementation.getTweetsByBoth(this.inputDto);
-    }
 
 }
