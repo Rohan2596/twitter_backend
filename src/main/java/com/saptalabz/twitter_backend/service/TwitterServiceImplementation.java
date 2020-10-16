@@ -4,6 +4,7 @@ import com.saptalabz.twitter_backend.configuration.TwitterApiConfiguration;
 import com.saptalabz.twitter_backend.dto.InputDto;
 import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
 import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
+import com.saptalabz.twitter_backend.exception.TwitterBackendException;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +27,22 @@ public class TwitterServiceImplementation implements ITwitterService {
 
 
     @Override
-    public List<Tweet> getTweetsByUsername(InputDto inputDto) {
+    public List<Tweet> getTweetsByUsername(InputDto inputDto) throws TwitterBackendException {
+        inputEmptyCheck(inputDto);
         saveToRepository(queryCreation(inputDto));
         return tweetsRepository.findAll();
     }
 
     @Override
-    public List<Tweet> getTweetsByTag(InputDto inputDto) {
+    public List<Tweet> getTweetsByTag(InputDto inputDto) throws TwitterBackendException {
+        inputEmptyCheck(inputDto);
         saveToRepository(queryCreation(inputDto));
         return tweetsRepository.findAll();
     }
 
     @Override
-    public List<Tweet> getTweetsByBoth(InputDto inputDto) {
+    public List<Tweet> getTweetsByBoth(InputDto inputDto) throws TwitterBackendException {
+        inputEmptyCheck(inputDto);
         saveToRepository(queryCreation(inputDto));
         return tweetsRepository.findAll();
     }
@@ -71,5 +75,11 @@ public class TwitterServiceImplementation implements ITwitterService {
             tweetsRepository.save(tweet);
         }
         return tweets.get(0);
+    }
+
+    public void inputEmptyCheck(InputDto inputDto) throws TwitterBackendException {
+        if(inputDto.inputList.size()==0){
+            throw new TwitterBackendException(TwitterBackendException.ExceptionTypes.INPUT_LIST_EMPTY);
+        }
     }
 }
