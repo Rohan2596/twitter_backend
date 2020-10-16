@@ -6,6 +6,7 @@ import com.saptalabz.twitter_backend.dto.twitter.SearchMetaData;
 import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
 import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
 import com.saptalabz.twitter_backend.dto.twitter.UserDto;
+import com.saptalabz.twitter_backend.exception.TwitterBackendException;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.junit.jupiter.api.Assertions;
@@ -83,7 +84,8 @@ public class TwitterServiceTest {
     }
 
     @Test
-    public void givenValidInput_whenInputUserName_shouldReturnValidResponse() {
+    public void givenValidInput_whenInputUserName_shouldReturnValidResponse() throws TwitterBackendException {
+
 
         this.searchInput.add(username);
         this.searchInput.add(username);
@@ -94,12 +96,25 @@ public class TwitterServiceTest {
         Mockito.when(this.twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
-        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByUsername(this.inputDto).size());
+        Assertions.assertEquals(2, twitterServiceImplementation.getTweetsByUsername(this.inputDto).size());
+    }
+
+    @Test
+    public void givenInValidInput_whenInputUserName_shouldReturnValidResponse() {
+
+        try {
+            this.inputDto = new InputDto(this.searchInput);
+            twitterServiceImplementation.getTweetsByUsername(this.inputDto);
+
+        } catch (TwitterBackendException t) {
+            Assertions.assertEquals("INPUT_LIST_EMPTY", t.exceptionTypes.name());
+
+        }
     }
 
 
     @Test
-    public void givenValidInput_whenInputTag_shouldReturnValidResponse(){
+    public void givenValidInput_whenInputTag_shouldReturnValidResponse() throws TwitterBackendException {
 
         this.searchInput.add(username);
         this.searchInput.add(username);
@@ -110,12 +125,25 @@ public class TwitterServiceTest {
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
-        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByTag(this.inputDto).size());
+        Assertions.assertEquals(2, twitterServiceImplementation.getTweetsByTag(this.inputDto).size());
 
     }
 
     @Test
-    public void givenValidInput_whenInputBoth_shouldReturnValidResponse(){
+    public void givenInValidInput_whenInputTag_shouldReturnValidResponse()  {
+
+        try {
+            this.inputDto = new InputDto(this.searchInput);
+            twitterServiceImplementation.getTweetsByTag(this.inputDto);
+
+        } catch (TwitterBackendException t) {
+            Assertions.assertEquals("INPUT_LIST_EMPTY", t.exceptionTypes.name());
+
+        }
+    }
+
+    @Test
+    public void givenValidInput_whenInputBoth_shouldReturnValidResponse() throws TwitterBackendException {
         this.searchInput.add(username);
         this.searchInput.add(username);
         this.getTweets = new ArrayList<>();
@@ -125,9 +153,23 @@ public class TwitterServiceTest {
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
         Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
-        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByBoth(inputDto).size());
+        Assertions.assertEquals(2, twitterServiceImplementation.getTweetsByBoth(inputDto).size());
 
     }
+
+    @Test
+    public void givenInValidInput_whenInputBoth_shouldReturnValidResponse()  {
+
+        try {
+            this.inputDto = new InputDto(this.searchInput);
+            twitterServiceImplementation.getTweetsByBoth(this.inputDto);
+
+        } catch (TwitterBackendException t) {
+            Assertions.assertEquals("INPUT_LIST_EMPTY", t.exceptionTypes.name());
+
+        }
+    }
+
 
 
 }

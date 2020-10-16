@@ -8,7 +8,6 @@ import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
 import com.saptalabz.twitter_backend.dto.twitter.UserDto;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.service.TwitterServiceImplementation;
-import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
