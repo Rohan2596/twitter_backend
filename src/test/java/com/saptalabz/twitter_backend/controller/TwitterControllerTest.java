@@ -2,6 +2,7 @@ package com.saptalabz.twitter_backend.controller;
 
 import com.google.gson.Gson;
 import com.saptalabz.twitter_backend.dto.InputDto;
+import com.saptalabz.twitter_backend.dto.Response;
 import com.saptalabz.twitter_backend.dto.twitter.SearchMetaData;
 import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
 import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
@@ -97,7 +98,27 @@ public class TwitterControllerTest {
                 .content(new Gson().toJson(this.inputDto)))
                 .andReturn();
 
-        Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
+        Assertions.assertEquals(200,
+                mvcResult.getResponse().getStatus());
+
+    }
+
+    @Test
+    public void givenInValidSearchInput_whenSearchByUsername_shouldReturnValidResponse() throws Exception {
+
+        this.getTweets = new ArrayList<>();
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
+        Mockito.when(twitterServiceImplementation.getTweetsByUsername(any())).thenReturn(this.getTweets);
+        MvcResult mvcResult = this.mockMvc.perform(post("/tweets/username")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(new Gson().toJson(this.inputDto)))
+                .andReturn();
+
+        Assertions.assertEquals("Getting Tweets By Usernames.",
+                new Gson().fromJson(mvcResult.getResponse().getContentAsString(), Response.class).message);
+
 
     }
 
@@ -120,6 +141,25 @@ public class TwitterControllerTest {
         Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
 
     }
+    @Test
+    public void givenInValidSearchInput_whenSearchByTag_shouldReturnValidResponse() throws Exception {
+
+        this.getTweets = new ArrayList<>();
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
+        Mockito.when(twitterServiceImplementation.getTweetsByUsername(any())).thenReturn(this.getTweets);
+        MvcResult mvcResult = this.mockMvc.perform(post("/tweets/tag")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(new Gson().toJson(this.inputDto)))
+                .andReturn();
+
+        Assertions.assertEquals("Getting Tweets By Tags.",
+                new Gson().fromJson(mvcResult.getResponse().getContentAsString(), Response.class).message);
+
+
+    }
+
 
     @Test
     public void givenValidSearchInput_whenSearchByBoth_shouldReturnValidResponse() throws Exception {
@@ -136,6 +176,25 @@ public class TwitterControllerTest {
                 .content(new Gson().toJson(this.inputDto)))
                 .andReturn();
         Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
+
+    }
+
+    @Test
+    public void givenInValidSearchInput_whenSearchByBoth_shouldReturnValidResponse() throws Exception {
+
+        this.getTweets = new ArrayList<>();
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
+        Mockito.when(twitterServiceImplementation.getTweetsByUsername(any())).thenReturn(this.getTweets);
+        MvcResult mvcResult = this.mockMvc.perform(post("/tweets/both")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(new Gson().toJson(this.inputDto)))
+                .andReturn();
+
+        Assertions.assertEquals("Getting Tweets By Both.",
+                new Gson().fromJson(mvcResult.getResponse().getContentAsString(), Response.class).message);
+
 
     }
 

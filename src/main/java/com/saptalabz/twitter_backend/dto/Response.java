@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Response {
 
-    public LocalDateTime createdTimeStamp=LocalDateTime.now();
+    public String createdTimeStamp=LocalDateTime.now().toString();
     public String message;
     public Object data;
 
