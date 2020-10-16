@@ -1,6 +1,7 @@
 package com.saptalabz.twitter_backend.controller;
 
 import com.saptalabz.twitter_backend.dto.InputDto;
+import com.saptalabz.twitter_backend.dto.Response;
 import com.saptalabz.twitter_backend.exception.TwitterBackendException;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.service.TwitterServiceImplementation;
@@ -18,8 +19,8 @@ public class TwitterController {
 
 
     @PostMapping("/username")
-    public List<Tweet> getAllTweetsByUserName(@RequestBody InputDto inputDto) throws TwitterBackendException {
-        return twitterServiceImplementation.getTweetsByUsername(inputDto);
+    public Response getAllTweetsByUserName(@RequestBody InputDto inputDto) throws TwitterBackendException {
+        return new Response("Getting Tweets By Username.",twitterServiceImplementation.getTweetsByUsername(inputDto));
     }
 
     @PostMapping("/tag")
