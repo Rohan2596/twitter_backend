@@ -20,18 +20,18 @@ public class TwitterController {
 
     @PostMapping("/username")
     public Response getAllTweetsByUserName(@RequestBody InputDto inputDto) throws TwitterBackendException {
-        return new Response("Getting Tweets By Username.",twitterServiceImplementation.getTweetsByUsername(inputDto));
+        return new Response("Getting Tweets By Usernames.",twitterServiceImplementation.getTweetsByUsername(inputDto));
     }
 
     @PostMapping("/tag")
-    public List<Tweet> getAllTweetsByTag(@RequestBody InputDto inputDto) throws TwitterBackendException {
-        return twitterServiceImplementation.getTweetsByTag(inputDto);
+    public Response getAllTweetsByTag(@RequestBody InputDto inputDto) throws TwitterBackendException {
+        return new Response("Getting Tweets By Tags.", twitterServiceImplementation.getTweetsByTag(inputDto));
 
     }
 
     @PostMapping("/both")
-    public List<Tweet> getAllTweetsByBoth(@RequestBody InputDto inputDto) throws TwitterBackendException {
-        return twitterServiceImplementation.getTweetsByBoth(  inputDto);
+    public Response getAllTweetsByBoth(@RequestBody InputDto inputDto) throws TwitterBackendException {
+        return new Response("Getting Tweets By Both.",twitterServiceImplementation.getTweetsByBoth(inputDto));
     }
 
 
