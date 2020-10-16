@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -42,8 +41,8 @@ public class TwitterServiceTest {
 
     String username = "@elonmusk";
     String tag = "#developer";
-    List<String> getTweets;
-
+    List<Tweet> getTweets;
+    List<String> searchInput = new ArrayList<>();
 
     TwitterDto twitterDto;
     StatusesDto statusesDto;
@@ -86,41 +85,47 @@ public class TwitterServiceTest {
     @Test
     public void givenValidInput_whenInputUserName_shouldReturnValidResponse() {
 
+        this.searchInput.add(username);
+        this.searchInput.add(username);
         this.getTweets = new ArrayList<>();
-        this.getTweets.add(username);
-        this.getTweets.add(username);
-        this.inputDto = new InputDto(this.getTweets);
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
         Mockito.when(this.twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
-        Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByUsername(this.inputDto));
+        Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
+        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByUsername(this.inputDto).size());
     }
 
 
     @Test
     public void givenValidInput_whenInputTag_shouldReturnValidResponse(){
 
+        this.searchInput.add(username);
+        this.searchInput.add(username);
         this.getTweets = new ArrayList<>();
-        this.getTweets.add(tag);
-        this.getTweets.add(tag);
-        this.inputDto = new InputDto(this.getTweets);
-
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
-        Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByTag(this.inputDto));
+        Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
+        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByTag(this.inputDto).size());
 
     }
 
     @Test
     public void givenValidInput_whenInputBoth_shouldReturnValidResponse(){
-
+        this.searchInput.add(username);
+        this.searchInput.add(username);
         this.getTweets = new ArrayList<>();
-        this.getTweets.add(username);
-        this.getTweets.add(tag);
-        this.inputDto = new InputDto(this.getTweets);
-
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.getTweets.add(new Tweet(this.statusesDto));
+        this.inputDto = new InputDto(this.searchInput);
         Mockito.when(twitterApiConfiguration.fetchTweetsFromTwitterApi(any())).thenReturn(this.twitterDto);
         Mockito.when(this.tweetsRepository.save(any())).thenReturn(this.tweet);
-        Assertions.assertEquals(this.inputDto.inputList,twitterServiceImplementation.getTweetsByBoth(inputDto));
+        Mockito.when(this.tweetsRepository.findAll()).thenReturn(this.getTweets);
+        Assertions.assertEquals(2,twitterServiceImplementation.getTweetsByBoth(inputDto).size());
 
     }
 

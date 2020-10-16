@@ -26,22 +26,21 @@ public class TwitterServiceImplementation implements ITwitterService {
 
 
     @Override
-    public List<String> getTweetsByUsername(InputDto inputDto) {
-        Tweet tweet=saveToRepository(queryCreation(inputDto));
-        System.out.println(tweet);
-        return inputDto.inputList;
-    }
-
-    @Override
-    public List<String> getTweetsByTag(InputDto inputDto) {
-        queryCreation(inputDto);
-        return inputDto.inputList;
-    }
-
-    @Override
-    public List<String> getTweetsByBoth(InputDto inputDto) {
+    public List<Tweet> getTweetsByUsername(InputDto inputDto) {
         saveToRepository(queryCreation(inputDto));
-        return inputDto.inputList;
+        return tweetsRepository.findAll();
+    }
+
+    @Override
+    public List<Tweet> getTweetsByTag(InputDto inputDto) {
+        saveToRepository(queryCreation(inputDto));
+        return tweetsRepository.findAll();
+    }
+
+    @Override
+    public List<Tweet> getTweetsByBoth(InputDto inputDto) {
+        saveToRepository(queryCreation(inputDto));
+        return tweetsRepository.findAll();
     }
 
 
