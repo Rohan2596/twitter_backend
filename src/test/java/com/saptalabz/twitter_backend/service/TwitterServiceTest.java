@@ -1,13 +1,10 @@
 package com.saptalabz.twitter_backend.service;
 
 import com.saptalabz.twitter_backend.configuration.TwitterApiConfiguration;
-import com.saptalabz.twitter_backend.dto.InputDto;
-import com.saptalabz.twitter_backend.dto.twitter.SearchMetaData;
-import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
-import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
-import com.saptalabz.twitter_backend.dto.twitter.UserDto;
+import com.saptalabz.twitter_backend.dto.*;
+import com.saptalabz.twitter_backend.dto.twitter.*;
 import com.saptalabz.twitter_backend.exception.TwitterBackendException;
-import com.saptalabz.twitter_backend.model.Tweet;
+import com.saptalabz.twitter_backend.model.*;
 import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -130,7 +126,7 @@ public class TwitterServiceTest {
     }
 
     @Test
-    public void givenInValidInput_whenInputTag_shouldReturnValidResponse()  {
+    public void givenInValidInput_whenInputTag_shouldReturnValidResponse() {
 
         try {
             this.inputDto = new InputDto(this.searchInput);
@@ -158,7 +154,7 @@ public class TwitterServiceTest {
     }
 
     @Test
-    public void givenInValidInput_whenInputBoth_shouldReturnValidResponse()  {
+    public void givenInValidInput_whenInputBoth_shouldReturnValidResponse() {
 
         try {
             this.inputDto = new InputDto(this.searchInput);
@@ -169,7 +165,6 @@ public class TwitterServiceTest {
 
         }
     }
-
 
 
 }

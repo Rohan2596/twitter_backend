@@ -1,15 +1,15 @@
 package com.saptalabz.twitter_backend.controller;
 
-import com.saptalabz.twitter_backend.dto.InputDto;
-import com.saptalabz.twitter_backend.dto.Response;
+import com.saptalabz.twitter_backend.dto.*;
 import com.saptalabz.twitter_backend.exception.TwitterBackendException;
-import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.service.TwitterServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+/*
+* @author  Rohan Kadam
+* @purpose Twitter Controller  for getting @username,#tag and both
+* */
 @RestController
 @RequestMapping("/tweets")
 public class TwitterController {

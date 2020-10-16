@@ -1,26 +1,27 @@
 package com.saptalabz.twitter_backend.service;
 
 import com.saptalabz.twitter_backend.configuration.TwitterApiConfiguration;
-import com.saptalabz.twitter_backend.dto.InputDto;
-import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
-import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
+import com.saptalabz.twitter_backend.dto.*;
+import com.saptalabz.twitter_backend.dto.twitter.*;
 import com.saptalabz.twitter_backend.exception.TwitterBackendException;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+
+/*
+* @author  Rohan Kadam
+* @purpose TwitterService Implementation for logic getting tweets from repository.
+*
+* */
 @Service
 public class TwitterServiceImplementation implements ITwitterService {
 
-
     @Autowired
     TwitterApiConfiguration twitterApiConfiguration;
-
-
 
     @Autowired
     TweetsRepository tweetsRepository;
@@ -78,7 +79,7 @@ public class TwitterServiceImplementation implements ITwitterService {
     }
 
     public void inputEmptyCheck(InputDto inputDto) throws TwitterBackendException {
-        if(inputDto.inputList.size()==0){
+        if (inputDto.inputList.size() == 0) {
             throw new TwitterBackendException(TwitterBackendException.ExceptionTypes.INPUT_LIST_EMPTY);
         }
     }

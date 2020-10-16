@@ -6,6 +6,12 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+
+/*
+* @author  Rohan kadam
+* @purpose Twitter Api Configuration for getting fetching tweets form twitter api.
+* */
+
 @Component
 public class TwitterApiConfiguration {
 
