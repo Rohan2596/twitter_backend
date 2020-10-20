@@ -13,10 +13,10 @@ import java.util.*;
 
 
 /*
-* @author  Rohan Kadam
-* @purpose TwitterService Implementation for logic getting tweets from repository.
-*
-* */
+ * @author  Rohan Kadam
+ * @purpose TwitterService Implementation for logic getting tweets from repository.
+ *
+ * */
 @Service
 public class TwitterServiceImplementation implements ITwitterService {
 
@@ -30,14 +30,15 @@ public class TwitterServiceImplementation implements ITwitterService {
     @Override
     public List<Tweet> getTweetsByUsername(InputDto inputDto) throws TwitterBackendException {
         inputEmptyCheck(inputDto);
-        saveToRepository(queryCreation(inputDto));
+        saveToRepository(queryCreationByUsername(inputDto));
         return tweetsRepository.findAll();
     }
 
     @Override
     public List<Tweet> getTweetsByTag(InputDto inputDto) throws TwitterBackendException {
         inputEmptyCheck(inputDto);
-        saveToRepository(queryCreation(inputDto));
+        saveToRepository(queryCreationByTag(inputDto));
+
         return tweetsRepository.findAll();
     }
 
@@ -59,11 +60,40 @@ public class TwitterServiceImplementation implements ITwitterService {
             if (value.contains("#")) {
                 String replace = value.replace("#", "%23");
                 query = replace + "+";
-                System.out.println(query);
             }
 
         }
 
+        return twitterApiConfiguration.fetchTweetsFromTwitterApi(query);
+
+    }
+
+    public TwitterDto queryCreationByUsername(InputDto inputDto) throws TwitterBackendException {
+        String query = "";
+        for (String value : inputDto.inputList) {
+            if (value.contains("#")) {
+                String replace = value.replace("#", "%23");
+                query = replace + "+";
+            } else {
+                throw new TwitterBackendException(TwitterBackendException.ExceptionTypes.INVALID_QUERY_ADDED);
+
+            }
+        }
+        return twitterApiConfiguration.fetchTweetsFromTwitterApi(query);
+
+    }
+
+    public TwitterDto queryCreationByTag(InputDto inputDto) throws TwitterBackendException {
+        String query = "";
+        for (String value : inputDto.inputList) {
+            if (value.contains("@")) {
+                String replace = value.replace("@", "%40");
+                query = replace + "+";
+            } else {
+                throw new TwitterBackendException(TwitterBackendException.ExceptionTypes.INVALID_QUERY_ADDED);
+
+            }
+        }
         return twitterApiConfiguration.fetchTweetsFromTwitterApi(query);
 
     }

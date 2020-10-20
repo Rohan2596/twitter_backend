@@ -4,7 +4,8 @@ public class TwitterBackendException  extends Exception{
 
     public  ExceptionTypes exceptionTypes;
      public   enum ExceptionTypes{
-       INPUT_LIST_EMPTY("No Search Query passed in Search Field.");
+       INPUT_LIST_EMPTY("No Search Query passed in Search Field."),
+         INVALID_QUERY_ADDED("Invalid Query passed in Search Field.");
 
        String message;
         ExceptionTypes(String message) {
