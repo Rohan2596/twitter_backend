@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 * */
 @RestController
 @RequestMapping("/tweets")
+@CrossOrigin(origins = "*")
 public class TwitterController {
 
     @Autowired
