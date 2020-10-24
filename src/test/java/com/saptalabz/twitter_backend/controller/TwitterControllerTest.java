@@ -3,10 +3,7 @@ package com.saptalabz.twitter_backend.controller;
 import com.google.gson.Gson;
 import com.saptalabz.twitter_backend.dto.InputDto;
 import com.saptalabz.twitter_backend.dto.Response;
-import com.saptalabz.twitter_backend.dto.twitter.SearchMetaData;
-import com.saptalabz.twitter_backend.dto.twitter.StatusesDto;
-import com.saptalabz.twitter_backend.dto.twitter.TwitterDto;
-import com.saptalabz.twitter_backend.dto.twitter.UserDto;
+import com.saptalabz.twitter_backend.dto.twitter.*;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.service.TwitterServiceImplementation;
 import org.junit.jupiter.api.Assertions;
@@ -48,6 +45,8 @@ public class TwitterControllerTest {
     SearchMetaData searchMetaData;
     Tweet tweet;
     List<StatusesDto> statuses = new ArrayList<StatusesDto>();
+    List<Media> mediaList=new ArrayList<>();
+    ExtendedEntities entities=new ExtendedEntities(mediaList);
 
     @BeforeEach
     void setUp() {
@@ -72,7 +71,7 @@ public class TwitterControllerTest {
                 "1315899573773238272",
                 "RT @elonmusk: \uD83E\uDD18 The Illuminaughty \uD83E\uDD18",
                 false,
-                this.userDto);
+                this.userDto,entities);
         this.statuses.add(this.statusesDto);
         this.statuses.add(this.statusesDto);
         this.twitterDto = new TwitterDto(this.statuses,

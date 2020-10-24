@@ -35,16 +35,19 @@ public class TwitterServiceTest {
     TwitterApiConfiguration twitterApiConfiguration;
 
     private InputDto inputDto;
-
+    Media media=new Media();
     String username = "@elonmusk";
     String tag = "#developer";
     List<Tweet> getTweets;
     List<String> searchInput = new ArrayList<>();
-
+    List<Media> mediaList=new ArrayList<>();
+    ExtendedEntities entities=new ExtendedEntities(mediaList);
     TwitterDto twitterDto;
     StatusesDto statusesDto;
     UserDto userDto;
     SearchMetaData searchMetaData;
+
+
     Tweet tweet;
     List<StatusesDto> statuses = new ArrayList<StatusesDto>();
 
@@ -71,7 +74,8 @@ public class TwitterServiceTest {
                 "1315899573773238272",
                 "RT @elonmusk: \uD83E\uDD18 The Illuminaughty \uD83E\uDD18",
                 false,
-                this.userDto);
+                this.userDto,
+                entities);
         this.statuses.add(this.statusesDto);
         this.statuses.add(this.statusesDto);
         this.twitterDto = new TwitterDto(this.statuses,

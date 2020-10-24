@@ -18,7 +18,9 @@ public class Tweet {
     public String profile_screen_name;
     public String profile_image_url;
     public String profile_image_url_https;
+    public String media_image_url_https;
     public LocalDateTime created_time_stamp;
+
 
 
     public Tweet(StatusesDto statusesDto) {
@@ -29,6 +31,8 @@ public class Tweet {
         this.profile_image_url=statusesDto.user.profile_image_url;
         this.profile_image_url_https=statusesDto.user.profile_image_url_https;
         this.created_time_stamp=LocalDateTime.now();
+        this.media_image_url_https="no_media";
+
 
     }
 
@@ -41,6 +45,7 @@ public class Tweet {
                 ", profile_screen_name='" + profile_screen_name + '\'' +
                 ", profile_image_url='" + profile_image_url + '\'' +
                 ", profile_image_url_https='" + profile_image_url_https + '\'' +
+                ", media_image_url_https='" + media_image_url_https + '\'' +
                 ", created_time_stamp=" + created_time_stamp +
                 '}';
     }
