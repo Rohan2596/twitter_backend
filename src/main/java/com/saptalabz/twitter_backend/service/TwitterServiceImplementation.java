@@ -9,6 +9,7 @@ import com.saptalabz.twitter_backend.repository.TweetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -68,13 +69,15 @@ public class TwitterServiceImplementation implements ITwitterService {
 
     }
 
-    public TwitterDto queryCreationByUsername(InputDto inputDto) throws TwitterBackendException {
+    public TwitterDto queryCreationByTag(InputDto inputDto) throws TwitterBackendException {
         String query = "";
         for (String value : inputDto.inputList) {
             if (value.contains("#")) {
                 String replace = value.replace("#", "%23");
                 query = replace + "+";
-            } else {
+            }
+            if(!value.contains("#"))
+            {
                 throw new TwitterBackendException(TwitterBackendException.ExceptionTypes.INVALID_QUERY_ADDED);
 
             }
@@ -83,7 +86,7 @@ public class TwitterServiceImplementation implements ITwitterService {
 
     }
 
-    public TwitterDto queryCreationByTag(InputDto inputDto) throws TwitterBackendException {
+    public TwitterDto queryCreationByUsername(InputDto inputDto) throws TwitterBackendException {
         String query = "";
         for (String value : inputDto.inputList) {
             if (value.contains("@")) {

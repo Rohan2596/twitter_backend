@@ -80,6 +80,8 @@ public class TwitterServiceTest {
         this.statuses.add(this.statusesDto);
         this.twitterDto = new TwitterDto(this.statuses,
                 this.searchMetaData);
+        this.media.media_url="sdfsdf";
+        this.mediaList.add(this.media);
         this.tweet = new Tweet(this.statusesDto);
     }
 
@@ -87,8 +89,8 @@ public class TwitterServiceTest {
     public void givenValidInput_whenInputUserName_shouldReturnValidResponse() throws TwitterBackendException {
 
 
-        this.searchInput.add(username);
-        this.searchInput.add(username);
+        this.searchInput.add(this.username);
+
         this.getTweets = new ArrayList<>();
         this.getTweets.add(new Tweet(this.statusesDto));
         this.getTweets.add(new Tweet(this.statusesDto));
@@ -116,8 +118,7 @@ public class TwitterServiceTest {
     @Test
     public void givenValidInput_whenInputTag_shouldReturnValidResponse() throws TwitterBackendException {
 
-        this.searchInput.add(username);
-        this.searchInput.add(username);
+        this.searchInput.add(tag);
         this.getTweets = new ArrayList<>();
         this.getTweets.add(new Tweet(this.statusesDto));
         this.getTweets.add(new Tweet(this.statusesDto));

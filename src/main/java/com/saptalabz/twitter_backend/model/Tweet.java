@@ -31,9 +31,12 @@ public class Tweet {
         this.profile_image_url=statusesDto.user.profile_image_url;
         this.profile_image_url_https=statusesDto.user.profile_image_url_https;
         this.created_time_stamp=LocalDateTime.now();
-        this.media_image_url_https="no_media";
-
-
+        if(statusesDto.extended_entities==null){
+            this.media_image_url_https="no_media";
+        }
+        if(statusesDto.extended_entities !=null){
+            this.media_image_url_https=statusesDto.extended_entities.media.get(0).media_url;
+        }
     }
 
     @Override

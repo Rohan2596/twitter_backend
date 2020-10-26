@@ -76,6 +76,9 @@ public class TwitterControllerTest {
         this.statuses.add(this.statusesDto);
         this.twitterDto = new TwitterDto(this.statuses,
                 this.searchMetaData);
+        Media media=new Media();
+        media.media_url="fsfdsf";
+        this.mediaList.add(media);
         this.tweet = new Tweet(this.statusesDto);
     }
 
