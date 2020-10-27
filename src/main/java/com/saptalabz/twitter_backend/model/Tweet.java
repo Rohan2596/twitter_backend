@@ -32,7 +32,7 @@ public class Tweet {
         this.profile_image_url_https=statusesDto.user.profile_image_url_https;
         this.created_time_stamp=LocalDateTime.now();
         if(statusesDto.extended_entities==null){
-            this.media_image_url_https="no_media";
+            this.media_image_url_https="";
         }
         if(statusesDto.extended_entities !=null){
             this.media_image_url_https=statusesDto.extended_entities.media.get(0).media_url;
