@@ -6,10 +6,10 @@ import com.saptalabz.twitter_backend.dto.twitter.*;
 import com.saptalabz.twitter_backend.exception.TwitterBackendException;
 import com.saptalabz.twitter_backend.model.Tweet;
 import com.saptalabz.twitter_backend.repository.TweetsRepository;
+import com.saptalabz.twitter_backend.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -26,6 +26,9 @@ public class TwitterServiceImplementation implements ITwitterService {
 
     @Autowired
     TweetsRepository tweetsRepository;
+
+    @Autowired
+    RedisUtil redisUtil;
 
 
     @Override
@@ -107,6 +110,7 @@ public class TwitterServiceImplementation implements ITwitterService {
             Tweet tweet = new Tweet(statusesDto);
             tweets.add(tweet);
             tweetsRepository.save(tweet);
+
         }
         return tweets.get(0);
     }
