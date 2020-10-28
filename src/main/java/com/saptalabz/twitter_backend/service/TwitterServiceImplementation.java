@@ -28,7 +28,7 @@ public class TwitterServiceImplementation implements ITwitterService {
     TweetsRepository tweetsRepository;
 
     @Autowired
-    RedisUtil redisUtil;
+    RedisUtil<Tweet> redisUtil;
 
 
     @Override
@@ -110,6 +110,7 @@ public class TwitterServiceImplementation implements ITwitterService {
             Tweet tweet = new Tweet(statusesDto);
             tweets.add(tweet);
             tweetsRepository.save(tweet);
+            redisUtil.putMap("tweets",tweet.id,tweet);
 
         }
         return tweets.get(0);
